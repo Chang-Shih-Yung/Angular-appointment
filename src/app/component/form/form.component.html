@@ -1,0 +1,49 @@
+<div class="w-full">
+  <div class="flex justify-center">
+    <div class="w-1/2 grid justify-items-center mt-20">
+      <h2 class="font-bold mb-8">人員登記系統</h2>
+      <div
+        id="people_list"
+        class="w-96 p-8 border rounded-xl flex justify-center"
+      >
+        <ul class="grid grid-rows-3 gap-8">
+          <li>
+            姓名:
+            <input
+              id="username"
+              class="ml-4 border h-12"
+              type="text"
+              [(ngModel)]="peopleInfo.username"
+            />
+          </li>
+          <li>
+            性別:
+            <input
+              class="ml-4 border"
+              type="radio"
+              value="1"
+              name="gender"
+              id="gender1"
+              [(ngModel)]="peopleInfo.gender"
+            /><label for="gender1">男</label>
+            <input
+              class="ml-4 border"
+              type="radio"
+              value="0"
+              name="gender"
+              id="gender2"
+              [(ngModel)]="peopleInfo.gender"
+            /><label for="gender2">女</label>
+          </li>
+          <select name="city" id="city" [(ngModel)]="peopleInfo.city">
+            <!-- option會將值傳遞給select，然後select在雙向綁定回去給peopleInfo.city。所以點擊獲取就可以獲取city的值 -->
+            <option [value]="item" *ngFor="let item of peopleInfo.cityList">
+              {{ item }}
+            </option>
+          </select>
+          <button (click)="doSubmit()" class="btn">獲取表單內容</button>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

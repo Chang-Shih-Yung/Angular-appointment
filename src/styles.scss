@@ -1,1 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+  	@import "tailwindcss/base";
+  	@import "tailwindcss/components";
+  	@import "tailwindcss/utilities";
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul,li{
+  list-style: none;
+}
+
+.border{
+  border: 1px solid #1f1f1f;
+  border-radius: 1rem;
+}
+.btn{
+  padding: 0.5rem 1rem;
+  background-color: #44627a;
+  color: #ffffff;
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+h2{
+  font-size: 2rem;
+  color: rgb(59, 59, 59);
+}
+
