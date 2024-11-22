@@ -1,48 +1,90 @@
 <div class="w-full">
   <div class="flex justify-center">
-    <div class="w-1/2 grid justify-items-center mt-20">
-      <h2 class="font-bold mb-8">人員登記系統</h2>
-      <div
-        id="people_list"
-        class="w-96 p-8 border rounded-xl flex justify-center"
-      >
-        <ul class="grid grid-rows-3 gap-8">
+    <div class="grid justify-items-start mt-20">
+      <p class="font-semibold">Profile</p>
+      <p class="text-1 mb-8">
+        This information will be displayed publicly so be careful what you
+        share.
+      </p>
+      <div id="people_list" class="rounded-xl flex justify-start w-full">
+        <!-- TODO:熟悉表單name、value、type、for這些屬性 -->
+        <ul class="grid grid-rows-2 gap-6 w-full">
           <li>
-            姓名:
+            <p class="mb-2">Username</p>
             <input
-              id="username"
-              class="ml-4 border h-12"
+              class="border h-8 w-full"
               type="text"
               [(ngModel)]="peopleInfo.username"
+              [placeholder]="'HenryChang'"
             />
           </li>
           <li>
-            性別:
+            <p class="mb-2">Gender</p>
             <input
-              class="ml-4 border"
               type="radio"
+              class="size-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600 mr-2"
               value="1"
               name="gender"
               id="gender1"
               [(ngModel)]="peopleInfo.gender"
-            /><label for="gender1">男</label>
+            /><label for="gender1" class="mr-4">Man</label>
             <input
-              class="ml-4 border"
+              class="size-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600 mr-2"
               type="radio"
               value="0"
               name="gender"
               id="gender2"
               [(ngModel)]="peopleInfo.gender"
-            /><label for="gender2">女</label>
+            /><label for="gender2">Woman</label>
           </li>
-          <select name="city" id="city" [(ngModel)]="peopleInfo.city">
-            <!-- option會將值傳遞給select，然後select在雙向綁定回去給peopleInfo.city。所以點擊獲取就可以獲取city的值 -->
-            <option [value]="item" *ngFor="let item of peopleInfo.cityList">
-              {{ item }}
-            </option>
-          </select>
-          <button (click)="doSubmit()" class="btn">獲取表單內容</button>
+          <li>
+            <p class="mb-2">City</p>
+            <select
+              name="city"
+              id="city"
+              [(ngModel)]="peopleInfo.city"
+              class="border w-full"
+            >
+              <!-- option會將值傳遞給select，然後select在雙向綁定回去給peopleInfo.city。流程是：在這裡點擊選擇for迴圈cityList出來的列表（ex:台北），就可以將台北這個值，透過ngModel綁定回物件peopleInfo中的city -->
+              <option [value]="item" *ngFor="let item of peopleInfo.cityList">
+                {{ item }}
+              </option>
+            </select>
+          </li>
+          <li>
+            <p class="">Push Notifications</p>
+            <p class="text-1 mb-6">
+              This information will be displayed publicly so be careful what you
+              share.
+            </p>
+            <!-- 需要動態綁定id/for，這樣當點擊title的時候，checkbox就會動態顯示誰被選到 -->
+            <span
+              *ngFor="let item of peopleInfo.hobby; let key = index"
+              class="mr-4"
+            >
+              <input
+                [id]="'check' + key"
+                type="checkbox"
+                class="size-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600 mr-2"
+                name="hobby"
+                [(ngModel)]="item.checked"
+              /><label [for]="'check' + key">{{ item.title }}</label>
+              <!-- Label的for與id永遠要對等 -->
+            </span>
+          </li>
+          <li>
+            <p class="mb-2">Bio</p>
+            <textarea
+              class="border w-full"
+              [(ngModel)]="peopleInfo.mark"
+              [placeholder]="'Tell us a little about yourself'"
+            ></textarea>
+          </li>
+          <button (click)="doSubmit()" class="btn">Get Real-Time Data</button>
+          <button (click)="downloadJson()" class="btn">下載個人訊息</button>
         </ul>
+        <!-- 模板直接看到物件格式 -->
+        <!-- <pre>{{ peopleInfo | json }}</pre> -->
       </div>
     </div>
   </div>
